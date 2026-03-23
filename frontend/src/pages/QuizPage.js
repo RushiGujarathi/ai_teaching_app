@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { generateQuiz, submitQuiz } from '../services/api';
 
 export default function QuizPage({ studentName }) {
-  const [step, setStep] = useState('setup'); // setup | quiz | results
+  const [step, setStep] = useState('setup');
   const [topic, setTopic] = useState('');
   const [numQ, setNumQ] = useState(5);
   const [difficulty, setDifficulty] = useState('medium');
@@ -14,45 +14,24 @@ export default function QuizPage({ studentName }) {
 
   const handleGenerate = async () => {
     if (!topic.trim()) return;
-    setLoading(true);
-    setError('');
+    setLoading(true); setError('');
     try {
       const res = await generateQuiz({ topic, num_questions: numQ, difficulty });
-      setQuizData(res.data);
-      setAnswers({});
-      setStep('quiz');
-    } catch (err) {
-      setError('Failed to generate quiz. Make sure the backend is running and API key is set.');
-    } finally {
-      setLoading(false);
-    }
+      setQuizData(res.data); setAnswers({}); setStep('quiz');
+    } catch { setError('Failed to generate quiz. Make sure the backend is running and API key is set.'); }
+    finally { setLoading(false); }
   };
 
-  const handleAnswer = (qId, option) => {
-    if (results) return;
-    setAnswers(prev => ({ ...prev, [qId]: option[0] }));
-  };
+  const handleAnswer = (qId, option) => { if (results) return; setAnswers(prev => ({ ...prev, [qId]: option[0] })); };
 
   const handleSubmit = async () => {
-    if (Object.keys(answers).length < quizData.questions.length) {
-      alert('Please answer all questions first!');
-      return;
-    }
+    if (Object.keys(answers).length < quizData.questions.length) { alert('Please answer all questions first!'); return; }
     setLoading(true);
     try {
-      const res = await submitQuiz({
-        student_name: studentName,
-        quiz_id: quizData.quiz_id,
-        answers,
-        questions: quizData.questions
-      });
-      setResults(res.data);
-      setStep('results');
-    } catch (err) {
-      setError('Failed to submit quiz.');
-    } finally {
-      setLoading(false);
-    }
+      const res = await submitQuiz({ student_name: studentName, quiz_id: quizData.quiz_id, answers, questions: quizData.questions });
+      setResults(res.data); setStep('results');
+    } catch { setError('Failed to submit quiz.'); }
+    finally { setLoading(false); }
   };
 
   const getOptionClass = (q, option) => {
@@ -76,15 +55,13 @@ export default function QuizPage({ studentName }) {
           <div className="form-group">
             <label>Number of Questions</label>
             <select className="form-select" value={numQ} onChange={e => setNumQ(Number(e.target.value))}>
-              {[3, 5, 7, 10].map(n => <option key={n}>{n}</option>)}
+              {[3,5,7,10].map(n => <option key={n}>{n}</option>)}
             </select>
           </div>
           <div className="form-group">
             <label>Difficulty</label>
             <select className="form-select" value={difficulty} onChange={e => setDifficulty(e.target.value)}>
-              <option value="easy">Easy</option>
-              <option value="medium">Medium</option>
-              <option value="hard">Hard</option>
+              <option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option>
             </select>
           </div>
         </div>
@@ -108,21 +85,13 @@ export default function QuizPage({ studentName }) {
             <h4>{i + 1}. {q.question}</h4>
             <div className="quiz-options">
               {q.options.map(opt => (
-                <button
-                  key={opt}
-                  className={getOptionClass(q, opt)}
-                  onClick={() => handleAnswer(q.id, opt)}
-                >
-                  {opt}
-                </button>
+                <button key={opt} className={getOptionClass(q, opt)} onClick={() => handleAnswer(q.id, opt)}>{opt}</button>
               ))}
             </div>
           </div>
         ))}
         <div style={{ display: 'flex', gap: 12, marginTop: 16 }}>
-          <button className="btn-primary" onClick={handleSubmit} disabled={loading}>
-            {loading ? 'Submitting...' : '✅ Submit Quiz'}
-          </button>
+          <button className="btn-primary" onClick={handleSubmit} disabled={loading}>{loading ? 'Submitting...' : '✅ Submit Quiz'}</button>
           <button className="btn-secondary" onClick={() => setStep('setup')}>← Back</button>
         </div>
       </div>
@@ -148,9 +117,7 @@ export default function QuizPage({ studentName }) {
             {r.explanation && <p style={{ fontSize: 13, color: '#718096', marginTop: 6 }}>💡 {r.explanation}</p>}
           </div>
         ))}
-        <button className="btn-primary" onClick={() => { setStep('setup'); setResults(null); }}>
-          Try Another Quiz →
-        </button>
+        <button className="btn-primary" onClick={() => { setStep('setup'); setResults(null); }}>Try Another Quiz →</button>
       </div>
     </div>
   );

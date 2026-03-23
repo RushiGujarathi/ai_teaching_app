@@ -22,17 +22,13 @@ class QuizAttempt(BaseModel):
 def generate_quiz(request: QuizRequest):
     try:
         raw = generate_quiz_ai(request.topic, request.num_questions, request.difficulty)
-
-        # Clean up JSON if wrapped in code blocks
         clean = raw.strip()
         if clean.startswith("```"):
             clean = clean.split("```")[1]
             if clean.startswith("json"):
                 clean = clean[4:]
         clean = clean.strip()
-
         quiz_data = json.loads(clean)
-
         conn = get_db()
         cursor = conn.cursor()
         cursor.execute(
@@ -42,9 +38,7 @@ def generate_quiz(request: QuizRequest):
         quiz_id = cursor.lastrowid
         conn.commit()
         conn.close()
-
         return {"quiz_id": quiz_id, **quiz_data}
-
     except json.JSONDecodeError:
         raise HTTPException(status_code=500, detail="AI did not return valid JSON. Try again.")
     except Exception as e:
@@ -68,7 +62,6 @@ def submit_quiz(attempt: QuizAttempt):
                 "is_correct": is_correct,
                 "explanation": q.get("explanation", "")
             })
-
         conn = get_db()
         cursor = conn.cursor()
         cursor.execute(
@@ -77,7 +70,6 @@ def submit_quiz(attempt: QuizAttempt):
         )
         conn.commit()
         conn.close()
-
         return {
             "score": score,
             "total": len(attempt.questions),

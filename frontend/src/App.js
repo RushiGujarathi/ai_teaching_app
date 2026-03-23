@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, NavLink, Navigate } from 'react-router-dom';
-import ChatPage from './pages/ChatPage';
-import QuizPage from './pages/QuizPage';
-import LessonPage from './pages/LessonPage';
+import ChatPage     from './pages/ChatPage';
+import QuizPage     from './pages/QuizPage';
+import LessonPage   from './pages/LessonPage';
 import ProgressPage from './pages/ProgressPage';
+import MLPage       from './pages/MLPage';       // NEW
 import './App.css';
 
 function App() {
@@ -49,18 +50,11 @@ function App() {
             <span>AI Teaching Assistant</span>
           </div>
           <div className="nav-links">
-            <NavLink to="/chat" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>
-              💬 Chat
-            </NavLink>
-            <NavLink to="/quiz" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>
-              📝 Quiz
-            </NavLink>
-            <NavLink to="/lesson" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>
-              📚 Lesson
-            </NavLink>
-            <NavLink to="/progress" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>
-              📊 Progress
-            </NavLink>
+            <NavLink to="/chat"     className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>💬 Chat</NavLink>
+            <NavLink to="/quiz"     className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>📝 Quiz</NavLink>
+            <NavLink to="/lesson"   className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>📚 Lesson</NavLink>
+            <NavLink to="/progress" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>📊 Progress</NavLink>
+            <NavLink to="/ml"       className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>🤖 ML</NavLink>
           </div>
           <div className="nav-user">
             <span className="user-badge">👤 {studentName}</span>
@@ -72,11 +66,12 @@ function App() {
 
         <main className="main-content">
           <Routes>
-            <Route path="/" element={<Navigate to="/chat" />} />
-            <Route path="/chat" element={<ChatPage studentName={studentName} />} />
-            <Route path="/quiz" element={<QuizPage studentName={studentName} />} />
-            <Route path="/lesson" element={<LessonPage />} />
+            <Route path="/"         element={<Navigate to="/chat" />} />
+            <Route path="/chat"     element={<ChatPage     studentName={studentName} />} />
+            <Route path="/quiz"     element={<QuizPage     studentName={studentName} />} />
+            <Route path="/lesson"   element={<LessonPage />} />
             <Route path="/progress" element={<ProgressPage studentName={studentName} />} />
+            <Route path="/ml"       element={<MLPage />} />
           </Routes>
         </main>
       </div>

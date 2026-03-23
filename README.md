@@ -1,161 +1,201 @@
-# 🎓 AI Teaching Assistance Project
+# AI Teaching Assistant — Complete Project with ML Module
 
-A full-stack AI-powered teaching assistant built with **React** (Frontend) and **Python 3.9 + FastAPI** (Backend).
-
----
-
-## 📁 Complete Project Structure
+## What's Inside
 
 ```
-ai-teaching-app/
-├── backend/
-│   ├── main.py                  ← FastAPI app entry point
-│   ├── requirements.txt         ← Python dependencies
-│   ├── .env.example             ← API key template
-│   ├── models/
-│   │   ├── __init__.py
-│   │   └── database.py          ← SQLite database setup
-│   ├── services/
-│   │   ├── __init__.py
-│   │   └── ai_service.py        ← Anthropic Claude API integration
-│   └── routers/
-│       ├── __init__.py
-│       ├── chat.py              ← /api/chat endpoints
-│       ├── quiz.py              ← /api/quiz endpoints
-│       ├── lesson.py            ← /api/lesson endpoints
-│       └── progress.py          ← /api/progress endpoints
+full_project/
+├── backend/          ← FastAPI Python server
+│   ├── ml/           ← NEW: ML scripts + trained models + dataset
+│   ├── routers/      ← API route handlers (chat, quiz, lesson, progress, ml)
+│   ├── models/       ← SQLite database setup
+│   ├── services/     ← Groq AI service
+│   ├── main.py       ← FastAPI app entry point
+│   ├── requirements.txt
+│   └── .env          ← Put your GROQ_API_KEY here
 │
-└── frontend/
-    ├── package.json
+└── frontend/         ← React app
     └── src/
-        ├── index.js             ← React entry point
-        ├── App.js               ← Router + Navbar + Login
-        ├── App.css              ← All styles
-        ├── services/
-        │   └── api.js           ← Axios API service
-        └── pages/
-            ├── ChatPage.js      ← AI Chat interface
-            ├── QuizPage.js      ← Quiz generator & results
-            ├── LessonPage.js    ← Lesson plan creator
-            └── ProgressPage.js  ← Student progress tracker
+        ├── pages/    ← ChatPage, QuizPage, LessonPage, ProgressPage, MLPage
+        ├── services/ ← API calls
+        ├── App.js    ← Routes + navbar
+        └── App.css
 ```
 
 ---
 
-## 🚀 Setup & Run Instructions
+## STEP-BY-STEP: How to Run
 
-### Step 1 — Get Anthropic API Key (FREE)
-1. Go to: https://console.anthropic.com
-2. Sign up / Login
-3. Click "API Keys" → "Create Key"
-4. Copy the key
+### Prerequisites
+- Python 3.10 or higher → https://python.org/downloads
+- Node.js 18 or higher  → https://nodejs.org
+- A Groq API key        → https://console.groq.com (free)
 
 ---
 
-### Step 2 — Backend Setup (Python 3.9)
+### Step 1 — Add Your Groq API Key
+
+Open `backend/.env` and replace the placeholder:
+
+```
+GROQ_API_KEY=your_actual_key_here
+```
+
+---
+
+### Step 2 — Setup & Run the Backend
+
+Open a terminal and run:
 
 ```bash
-# Navigate to backend folder
-cd ai-teaching-app/backend
+# Go into the backend folder
+cd full_project/backend
 
-# Create virtual environment (recommended)
-python3.9 -m venv venv
+# Create a virtual environment (recommended)
+python -m venv venv
 
-# Activate virtual environment
+# Activate it:
 # On Windows:
+ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 venv\Scripts\activate
 # On Mac/Linux:
 source venv/bin/activate
 
-# Install dependencies
+# Install all dependencies
 pip install -r requirements.txt
 
-# Create .env file
-cp .env.example .env
-
-# Open .env and add your API key:
-# ANTHROPIC_API_KEY=sk-ant-your-key-here
-
-# Run the backend server
-uvicorn main:app --reload --port 8000
+# Start the backend server
+uvicorn main:app --reload
 ```
 
-Backend will start at: http://localhost:8000
-API Docs (Swagger): http://localhost:8000/docs
+You should see:
+```
+INFO:     Uvicorn running on http://127.0.0.1:8000
+```
+
+Test it: open http://localhost:8000 in your browser → you should see `{"message":"AI Teaching Assistant API is running!"}`
 
 ---
 
-### Step 3 — Frontend Setup (React)
+### Step 3 — Train the ML Models (one-time setup)
 
-Open a NEW terminal:
+Open a **second terminal** (keep the backend running in the first one):
 
 ```bash
-# Navigate to frontend folder
-cd ai-teaching-app/frontend
+cd full_project/backend/ml
 
-# Install dependencies
+# 1. Generate the dataset (600 synthetic students)
+python generate_dataset.py
+
+# 2. Clean the data (remove duplicates, fix missing values, engineer features)
+python data_cleaning.py
+
+# 3. Train the models (Ridge Regression + Random Forest + Gradient Boosting)
+python train_model.py
+```
+
+Expected output from train_model.py:
+```
+Ridge Regression  → R² = 0.70
+Random Forest     → R² = 0.77
+Gradient Boosting → R² = 0.79  ← Best model
+✅ Models saved → models_saved/
+```
+
+> NOTE: If you skip this step, the ML page will show "Model not found".
+> The pre-trained .pkl files are already included in the zip so you can skip this on first run.
+
+---
+
+### Step 4 — Setup & Run the Frontend
+
+Open a **third terminal**:
+
+```bash
+# Go into the frontend folder
+cd full_project/frontend
+
+# Install Node.js packages
 npm install
 
-# Start React app
+# Start the React development server
 npm start
 ```
 
-Frontend will open at: http://localhost:3000
+The browser will automatically open http://localhost:3000
 
 ---
 
-## ✅ Features
+### Step 5 — Use the App!
 
-| Feature | Description |
-|---------|-------------|
-| 💬 AI Chat | Subject-wise Q&A powered by Claude AI |
-| 📝 Quiz Generator | Auto-generate MCQ quizzes by topic & difficulty |
-| 📚 Lesson Planner | Create complete lesson plans for any grade |
-| 📊 Progress Tracker | Track student scores, quiz history, activity |
+1. Enter your name on the login screen
+2. Navigate using the top navbar:
+   - 💬 **Chat** — Ask AI questions about any subject
+   - 📝 **Quiz** — Generate custom quizzes with AI
+   - 📚 **Lesson** — Create lesson plans (for teachers)
+   - 📊 **Progress** — Track quiz scores and activity
+   - 🤖 **ML** — ML Score Predictor (4 tabs below)
 
----
-
-## 🔗 API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | /api/chat/ | Send chat message to AI |
-| GET | /api/chat/history/{name} | Get chat history |
-| POST | /api/quiz/generate | Generate AI quiz |
-| POST | /api/quiz/submit | Submit quiz answers |
-| GET | /api/quiz/attempts/{name} | Get quiz history |
-| POST | /api/lesson/generate | Generate lesson plan |
-| GET | /api/lesson/all | Get all saved lessons |
-| POST | /api/progress/student | Create student |
-| GET | /api/progress/student/{name} | Get student progress |
-| GET | /api/progress/students | List all students |
+#### ML Page Tabs:
+| Tab | What it shows |
+|-----|--------------|
+| 📊 Overview | Model comparison table, ML pipeline diagram, all 12 ML concepts explained |
+| 🔮 Predict | Fill student profile with sliders → get predicted final score + grade |
+| 🗂 Dataset | Sample of raw student data + all cleaning steps explained |
+| 🔬 Features | Bar chart of Random Forest feature importances |
 
 ---
 
-## 🛠 Tech Stack
+## API Endpoints Reference
 
-- **Frontend**: React 18, React Router v6, Axios, React Markdown
-- **Backend**: Python 3.9, FastAPI, Uvicorn, Pydantic v2
-- **Database**: SQLite (no setup required!)
-- **AI**: Anthropic Claude (claude-sonnet-4-20250514)
+| Endpoint | Description |
+|----------|-------------|
+| GET  /api/ml/status | Check if model is loaded |
+| GET  /api/ml/evaluation | MAE, RMSE, R² for all 3 models |
+| GET  /api/ml/feature-importance | Top features by importance |
+| GET  /api/ml/dataset/sample | Raw dataset preview |
+| POST /api/ml/predict | Predict score from student profile |
+| POST /api/ml/train | Retrain models (via browser button too) |
 
----
-
-## 🐛 Troubleshooting
-
-**CORS Error?**
-→ Make sure backend is running on port 8000
-
-**API Key Error?**
-→ Check .env file has correct ANTHROPIC_API_KEY
-
-**Module not found?**
-→ Run `pip install -r requirements.txt` again
-
-**React not starting?**
-→ Run `npm install` in frontend folder
+Full API docs: http://localhost:8000/docs (Swagger UI, auto-generated)
 
 ---
 
-## 📞 Support
-Built with ❤️ using React + FastAPI + Claude AI
+## ML Concepts Implemented
+
+| Concept | File |
+|---------|------|
+| Synthetic data generation | `ml/generate_dataset.py` |
+| Outlier capping (IQR Winsorisation) | `ml/data_cleaning.py` |
+| Missing value imputation (median/mode) | `ml/data_cleaning.py` |
+| One-Hot Encoding (gender, school_type) | `ml/data_cleaning.py` |
+| Feature Engineering (study_efficiency) | `ml/data_cleaning.py` |
+| StandardScaler (Z-score normalisation) | `ml/data_cleaning.py` |
+| Ridge Regression | `ml/train_model.py` |
+| Random Forest Regressor | `ml/train_model.py` |
+| Gradient Boosting Regressor | `ml/train_model.py` |
+| Train/Test Split (80/20) | `ml/train_model.py` |
+| 5-Fold Cross Validation | `ml/train_model.py` |
+| MAE / RMSE / R² evaluation | `ml/train_model.py` |
+| Feature Importance | `ml/train_model.py` |
+| Model serialisation (joblib) | `ml/train_model.py` |
+| REST inference API | `backend/routers/ml.py` |
+
+---
+
+## Troubleshooting
+
+**Backend won't start:**
+- Make sure Python virtual environment is activated
+- Run `pip install -r requirements.txt` again
+
+**ML page shows "Model not found":**
+- Run the 3 python scripts in `backend/ml/` (Step 3 above)
+- Or click the "🔄 Retrain Model" button on the ML page
+
+**Frontend shows network error:**
+- Make sure the backend is running on port 8000
+- Check: http://localhost:8000/docs
+
+**Chat / Quiz / Lesson not working:**
+- Make sure your GROQ_API_KEY is set in `backend/.env`
+- Get a free key at: https://console.groq.com

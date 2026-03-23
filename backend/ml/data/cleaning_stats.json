@@ -1,0 +1,40 @@
+{
+  "raw_shape": [
+    618,
+    11
+  ],
+  "cleaned_shape": [
+    601,
+    16
+  ],
+  "scaled_columns": [
+    "study_hours_per_day",
+    "attendance_pct",
+    "prev_score",
+    "sleep_hours",
+    "tutoring_sessions",
+    "parental_support",
+    "study_efficiency",
+    "score_improvement"
+  ],
+  "final_columns": [
+    "study_hours_per_day",
+    "attendance_pct",
+    "prev_score",
+    "sleep_hours",
+    "tutoring_sessions",
+    "parental_support",
+    "internet_access",
+    "extracurricular",
+    "final_score",
+    "gender_male",
+    "school_type_public",
+    "study_efficiency",
+    "score_improvement",
+    "performance_tier_excellent",
+    "performance_tier_good",
+    "performance_tier_low"
+  ],
+  "target": "final_score",
+  "missing_remaining": 0
+}

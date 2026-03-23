@@ -6,7 +6,6 @@ body {
   color: #2d3748;
 }
 
-/* Login Screen */
 .login-screen {
   min-height: 100vh;
   display: flex;
@@ -38,7 +37,6 @@ body {
 }
 .name-input:focus { border-color: #667eea; }
 
-/* Navbar */
 .navbar {
   background: white;
   padding: 12px 24px;
@@ -60,12 +58,7 @@ body {
   white-space: nowrap;
 }
 .nav-icon { font-size: 24px; }
-.nav-links {
-  display: flex;
-  gap: 4px;
-  flex: 1;
-  justify-content: center;
-}
+.nav-links { display: flex; gap: 4px; flex: 1; justify-content: center; }
 .nav-link {
   padding: 8px 18px;
   border-radius: 10px;
@@ -85,7 +78,6 @@ body {
   font-weight: 500;
 }
 
-/* Buttons */
 .btn-primary {
   background: #667eea;
   color: white;
@@ -124,13 +116,11 @@ body {
 }
 .btn-logout:hover { border-color: #fc8181; color: #fc8181; }
 
-/* Main */
 .main-content { padding: 24px; max-width: 1200px; margin: 0 auto; }
 .page-header { margin-bottom: 24px; }
 .page-header h2 { font-size: 26px; font-weight: 700; color: #1a202c; }
 .page-header p { color: #718096; margin-top: 4px; }
 
-/* Cards */
 .card {
   background: white;
   border-radius: 16px;
@@ -138,7 +128,6 @@ body {
   box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
 
-/* Chat */
 .chat-container { display: flex; flex-direction: column; height: calc(100vh - 160px); }
 .chat-messages {
   flex: 1;
@@ -171,11 +160,7 @@ body {
   border-bottom-left-radius: 4px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
-.chat-input-row {
-  display: flex;
-  gap: 10px;
-  align-items: flex-end;
-}
+.chat-input-row { display: flex; gap: 10px; align-items: flex-end; }
 .chat-input {
   flex: 1;
   padding: 12px 18px;
@@ -203,7 +188,6 @@ body {
 .chat-send-btn:hover { background: #5a67d8; }
 .chat-send-btn:disabled { background: #a0aec0; }
 
-/* Form Elements */
 .form-group { margin-bottom: 16px; }
 .form-group label { display: block; font-weight: 600; margin-bottom: 6px; color: #4a5568; font-size: 14px; }
 .form-input, .form-select {
@@ -219,7 +203,6 @@ body {
 }
 .form-input:focus, .form-select:focus { border-color: #667eea; }
 
-/* Quiz */
 .quiz-question { margin-bottom: 24px; }
 .quiz-question h4 { font-size: 16px; margin-bottom: 12px; color: #2d3748; }
 .quiz-options { display: flex; flex-direction: column; gap: 8px; }
@@ -238,7 +221,6 @@ body {
 .quiz-option.correct { border-color: #48bb78; background: #f0fff4; }
 .quiz-option.wrong { border-color: #fc8181; background: #fff5f5; }
 
-/* Progress */
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 24px; }
 .stat-card {
   background: white;
@@ -250,7 +232,6 @@ body {
 .stat-number { font-size: 32px; font-weight: 700; color: #667eea; }
 .stat-label { color: #718096; font-size: 13px; margin-top: 4px; }
 
-/* Lesson */
 .lesson-section { margin-bottom: 20px; }
 .lesson-section h4 {
   font-size: 15px;
@@ -281,7 +262,6 @@ body {
   height: fit-content;
 }
 
-/* Loading */
 .loading { text-align: center; padding: 40px; color: #a0aec0; font-size: 16px; }
 .typing-dots span {
   display: inline-block;
@@ -297,4 +277,8 @@ body {
 @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 
 .grid-2 { display: grid; grid-template-columns: 1fr 2fr; gap: 24px; }
-@media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } .nav-links { gap: 2px; } .nav-link { padding: 8px 10px; font-size: 13px; } }
+@media (max-width: 768px) {
+  .grid-2 { grid-template-columns: 1fr; }
+  .nav-links { gap: 2px; }
+  .nav-link { padding: 8px 10px; font-size: 13px; }
+}

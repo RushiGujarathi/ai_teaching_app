@@ -26,10 +26,7 @@ def send_message(request: ChatRequest):
     try:
         messages = [{"role": m.role, "content": m.content} for m in request.history]
         messages.append({"role": "user", "content": request.message})
-
         ai_response = chat_with_ai(messages, request.subject)
-
-        # Save to database
         conn = get_db()
         cursor = conn.cursor()
         cursor.execute(
@@ -42,9 +39,7 @@ def send_message(request: ChatRequest):
         )
         conn.commit()
         conn.close()
-
         return ChatResponse(response=ai_response, student_name=request.student_name)
-
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

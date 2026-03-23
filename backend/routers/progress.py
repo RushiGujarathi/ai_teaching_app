@@ -30,8 +30,6 @@ def create_student(student: StudentCreate):
 def get_progress(student_name: str):
     conn = get_db()
     cursor = conn.cursor()
-
-    # Quiz stats
     cursor.execute(
         """SELECT COUNT(*) as total_quizzes,
                   AVG(score * 100.0 / total) as avg_score,
@@ -40,15 +38,11 @@ def get_progress(student_name: str):
         (student_name,)
     )
     quiz_stats = dict(cursor.fetchone())
-
-    # Chat count
     cursor.execute(
         "SELECT COUNT(*) as total_chats FROM chat_history WHERE student_name = ? AND role = 'user'",
         (student_name,)
     )
     chat_stats = dict(cursor.fetchone())
-
-    # Recent quiz attempts
     cursor.execute(
         """SELECT qa.score, qa.total, qa.created_at, q.topic
            FROM quiz_attempts qa LEFT JOIN quizzes q ON qa.quiz_id = q.id
@@ -56,7 +50,6 @@ def get_progress(student_name: str):
         (student_name,)
     )
     recent_quizzes = [dict(row) for row in cursor.fetchall()]
-
     conn.close()
     return {
         "student_name": student_name,

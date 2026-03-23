@@ -1,0 +1,16 @@
+[
+  "study_hours_per_day",
+  "attendance_pct",
+  "prev_score",
+  "sleep_hours",
+  "tutoring_sessions",
+  "parental_support",
+  "internet_access",
+  "extracurricular",
+  "gender_male",
+  "school_type_public",
+  "study_efficiency",
+  "performance_tier_excellent",
+  "performance_tier_good",
+  "performance_tier_low"
+]

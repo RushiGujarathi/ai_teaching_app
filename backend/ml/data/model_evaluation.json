@@ -1,0 +1,228 @@
+{
+  "models": [
+    {
+      "model": "Ridge Regression",
+      "MAE": 5.258,
+      "MSE": 62.09,
+      "RMSE": 7.88,
+      "R2": 0.7007,
+      "CV_R2_mean": 0.7107,
+      "CV_R2_std": 0.0375,
+      "train_size": 480,
+      "test_size": 121,
+      "feature_importance": [
+        {
+          "feature": "study_hours_per_day",
+          "coefficient": 13.78591
+        },
+        {
+          "feature": "study_efficiency",
+          "coefficient": -6.4613
+        },
+        {
+          "feature": "attendance_pct",
+          "coefficient": 6.44235
+        },
+        {
+          "feature": "prev_score",
+          "coefficient": 5.65292
+        },
+        {
+          "feature": "tutoring_sessions",
+          "coefficient": 4.0105
+        },
+        {
+          "feature": "internet_access",
+          "coefficient": 2.18162
+        },
+        {
+          "feature": "parental_support",
+          "coefficient": 2.15987
+        },
+        {
+          "feature": "sleep_hours",
+          "coefficient": 1.4963
+        },
+        {
+          "feature": "school_type_public",
+          "coefficient": -0.96357
+        },
+        {
+          "feature": "performance_tier_low",
+          "coefficient": -0.92889
+        },
+        {
+          "feature": "performance_tier_excellent",
+          "coefficient": -0.81505
+        },
+        {
+          "feature": "performance_tier_good",
+          "coefficient": -0.60316
+        },
+        {
+          "feature": "extracurricular",
+          "coefficient": -0.38297
+        },
+        {
+          "feature": "gender_male",
+          "coefficient": 0.16535
+        }
+      ]
+    },
+    {
+      "model": "Random Forest",
+      "MAE": 4.827,
+      "MSE": 48.211,
+      "RMSE": 6.943,
+      "R2": 0.7676,
+      "CV_R2_mean": 0.7463,
+      "CV_R2_std": 0.0261,
+      "train_size": 480,
+      "test_size": 121,
+      "feature_importance": [
+        {
+          "feature": "study_efficiency",
+          "importance": 0.52566
+        },
+        {
+          "feature": "prev_score",
+          "importance": 0.22708
+        },
+        {
+          "feature": "tutoring_sessions",
+          "importance": 0.10816
+        },
+        {
+          "feature": "attendance_pct",
+          "importance": 0.03605
+        },
+        {
+          "feature": "sleep_hours",
+          "importance": 0.02909
+        },
+        {
+          "feature": "study_hours_per_day",
+          "importance": 0.02674
+        },
+        {
+          "feature": "parental_support",
+          "importance": 0.0233
+        },
+        {
+          "feature": "internet_access",
+          "importance": 0.00658
+        },
+        {
+          "feature": "gender_male",
+          "importance": 0.00534
+        },
+        {
+          "feature": "extracurricular",
+          "importance": 0.00503
+        },
+        {
+          "feature": "school_type_public",
+          "importance": 0.00377
+        },
+        {
+          "feature": "performance_tier_excellent",
+          "importance": 0.00121
+        },
+        {
+          "feature": "performance_tier_good",
+          "importance": 0.0011
+        },
+        {
+          "feature": "performance_tier_low",
+          "importance": 0.00087
+        }
+      ]
+    },
+    {
+      "model": "Gradient Boosting",
+      "MAE": 4.824,
+      "MSE": 43.177,
+      "RMSE": 6.571,
+      "R2": 0.7919,
+      "CV_R2_mean": 0.7357,
+      "CV_R2_std": 0.0309,
+      "train_size": 480,
+      "test_size": 121,
+      "feature_importance": [
+        {
+          "feature": "study_efficiency",
+          "importance": 0.50427
+        },
+        {
+          "feature": "prev_score",
+          "importance": 0.23739
+        },
+        {
+          "feature": "tutoring_sessions",
+          "importance": 0.11319
+        },
+        {
+          "feature": "attendance_pct",
+          "importance": 0.04597
+        },
+        {
+          "feature": "sleep_hours",
+          "importance": 0.02906
+        },
+        {
+          "feature": "study_hours_per_day",
+          "importance": 0.02861
+        },
+        {
+          "feature": "parental_support",
+          "importance": 0.02454
+        },
+        {
+          "feature": "internet_access",
+          "importance": 0.00658
+        },
+        {
+          "feature": "school_type_public",
+          "importance": 0.00409
+        },
+        {
+          "feature": "extracurricular",
+          "importance": 0.00253
+        },
+        {
+          "feature": "performance_tier_excellent",
+          "importance": 0.00175
+        },
+        {
+          "feature": "gender_male",
+          "importance": 0.00152
+        },
+        {
+          "feature": "performance_tier_good",
+          "importance": 0.00033
+        },
+        {
+          "feature": "performance_tier_low",
+          "importance": 0.00018
+        }
+      ]
+    }
+  ],
+  "best_model": "Gradient Boosting",
+  "feature_names": [
+    "study_hours_per_day",
+    "attendance_pct",
+    "prev_score",
+    "sleep_hours",
+    "tutoring_sessions",
+    "parental_support",
+    "internet_access",
+    "extracurricular",
+    "gender_male",
+    "school_type_public",
+    "study_efficiency",
+    "performance_tier_excellent",
+    "performance_tier_good",
+    "performance_tier_low"
+  ]
+}

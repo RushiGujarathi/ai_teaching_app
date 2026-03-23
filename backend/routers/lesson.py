@@ -15,34 +15,24 @@ class LessonRequest(BaseModel):
 def generate_lesson(request: LessonRequest):
     try:
         raw = generate_lesson_ai(request.topic, request.grade_level, request.duration)
-
         clean = raw.strip()
         if clean.startswith("```"):
             clean = clean.split("```")[1]
             if clean.startswith("json"):
                 clean = clean[4:]
         clean = clean.strip()
-
         lesson_data = json.loads(clean)
-
         conn = get_db()
         cursor = conn.cursor()
         cursor.execute(
             "INSERT INTO lesson_plans (topic, grade_level, duration, objectives, content) VALUES (?, ?, ?, ?, ?)",
-            (
-                request.topic,
-                request.grade_level,
-                request.duration,
-                json.dumps(lesson_data.get("objectives", [])),
-                json.dumps(lesson_data)
-            )
+            (request.topic, request.grade_level, request.duration,
+             json.dumps(lesson_data.get("objectives", [])), json.dumps(lesson_data))
         )
         lesson_id = cursor.lastrowid
         conn.commit()
         conn.close()
-
         return {"lesson_id": lesson_id, **lesson_data}
-
     except json.JSONDecodeError:
         raise HTTPException(status_code=500, detail="AI did not return valid JSON. Try again.")
     except Exception as e:
